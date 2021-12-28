@@ -4,6 +4,7 @@ import "./App.css";
 import data from "./mock-data.json";
 import ReadOnlyRow from "./components/ReadOnlyRow";
 import EditableRow from "./components/EditableRow";
+import axios from 'axios';
 
 const App = () => {
   const [contacts, setContacts] = useState(data);
@@ -80,9 +81,9 @@ const App = () => {
       address: editFormData.address,
       phoneNumber: editFormData.phoneNumber,
       email: editFormData.email,
-      department: addFormData.department,
-      title: addFormData.title,
-      location: addFormData.location
+      department: editFormData.department,
+      title: editFormData.title,
+      location: editFormData.location
     };
 
     const newContacts = [...contacts];
@@ -132,21 +133,21 @@ const App = () => {
         <table>
           <thead>
             <tr>
-              <th key="nam">Name</th>
-              <th key="addr">Address</th>
-              <th key="cell">Phone Number</th>
-              <th key="ema">Email</th>
-              <th key="depar">Department</th>
-              <th key="titl">Title</th>
-              <th key="loc">Location</th>
+              <th>Name</th>
+              <th>Address</th>
+              <th>Phone Number</th>
+              <th>Email</th>
+              <th>Department</th>
+              <th>Title</th>
+              <th>Location</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {contacts.map((contact) => (
-              <Fragment>
+              <Fragment key={contact.id}>
                 {editContactId === contact.id ? (
-                  <EditableRow
+                  <EditableRow 
                     editFormData={editFormData}
                     handleEditFormChange={handleEditFormChange}
                     handleCancelClick={handleCancelClick}
@@ -166,49 +167,49 @@ const App = () => {
 
       <h2>Add a Contact</h2>
       <form onSubmit={handleAddFormSubmit}>
-        <input
+        <input id='newFullName'
           type="text"
           name="fullName"
           required="required"
           placeholder="Enter a name..."
           onChange={handleAddFormChange}
         />
-        <input
+        <input id='newAddress'
           type="text"
           name="address"
           required="required"
           placeholder="Enter an addres..."
           onChange={handleAddFormChange}
         />
-        <input
+        <input id='newPhoneNumber'
           type="text"
           name="phoneNumber"
           required="required"
           placeholder="Enter a phone number..."
           onChange={handleAddFormChange}
         />
-        <input
+        <input id='newEmail'
           type="email"
           name="email"
           required="required"
           placeholder="Enter an email..."
           onChange={handleAddFormChange}
         />
-        <input
+        <input id='newDeparment'
           type="text"
           name="department"
           required="required"
           placeholder="Enter a department..."
           onChange={handleAddFormChange}
         />
-        <input
+        <input id='newTitle'
           type="text"
           name="title"
           required="required"
           placeholder="Enter a title..."
           onChange={handleAddFormChange}
         />
-        <input
+        <input id='newLocation'
           type="text"
           name="location"
           required="required"
